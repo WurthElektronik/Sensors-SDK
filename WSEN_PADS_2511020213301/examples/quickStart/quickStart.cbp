@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="quickStart" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/quickStart" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../../drivers" />
+					<Add directory="../../../platform" />
+					<Add directory="../../../../WESensorsSDK" />
+				</Compiler>
+				<Linker>
+					<Add option="-pthread" />
+					<Add library="../../../../../../../../usr/lib/libwiringPi.so" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/quickStart" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="../../drivers" />
+					<Add directory="../../../platform" />
+					<Add directory="../../../WSEN_PADS_2511020213301" />
+					<Add directory="../../../../WESensorsSDK" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-pthread" />
+					<Add library="../../../../../../../usr/lib/libwiringPi.so" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../../../platform/platform.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../platform/platform.h" />
+		<Unit filename="../../../version.h" />
+		<Unit filename="../../drivers/WSEN_PADS_2511020213301.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../drivers/WSEN_PADS_2511020213301.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
