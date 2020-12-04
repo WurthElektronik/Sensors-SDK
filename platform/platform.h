@@ -1,7 +1,7 @@
 /**
  ***************************************************************************************************
  * This file is part of Sensors SDK:
- * https://www.we-online.com/sensors
+ * https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
  *
  * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
  * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
@@ -57,13 +57,28 @@
 
 
 /**         Functions definition         */
-int8_t SpiInit(int channel);
+
+
+
+/* Initializes i2c periphheral for communicaiton with a sensor. either use I2CInit() or SpiInit(). */
 int8_t I2CInit(int address);
+
+/* 
+ * Initalizes SPI peripheral for communicaiton with a sensor. either use I2CInit() or SpiInit(). 
+ * USE_SPI (this file, line 56) must be defined to use the SPI as communication interface. 
+ */
+int8_t SpiInit(int channel);
+
+/* Read a register's content */
 int8_t ReadReg(uint8_t RegAdr, int NumByteToRead, uint8_t *Data);
+
+/* write a register's content */
 int8_t WriteReg(uint8_t RegAdr, int NumByteToWrite, uint8_t *Data);
 
+/* debug output */
 void Debug_out(char *str, bool status);
 
+/* provides means for a delay in 1 ms resolution. blocking. */
 extern void delay(unsigned int sleepForMs);
 
 #endif /* _WE_PLATTFORM_H */

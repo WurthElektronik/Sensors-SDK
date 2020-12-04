@@ -1,7 +1,7 @@
 /**
  ***************************************************************************************************
  * This file is part of WE sensors SDK:
- * https://www.we-online.com/sensors
+ * https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
  *
  * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
  * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
@@ -32,13 +32,17 @@
 #include <unistd.h>
 
 
-
 #define DUMMY 0x00
 
-static int i2c_handle = 0; // global handle to the  i2c interface
 #ifdef USE_SPI
+
 static int spi_channel = 1;
 static int spi_handle = 0; // global handle to the  spi interface
+
+#else /* I2C is used */
+
+static int i2c_handle = 0; // global handle to the  i2c interface
+
 #endif // USE_SPI
 
 /**
@@ -48,6 +52,10 @@ static int spi_handle = 0; // global handle to the  spi interface
 */
 int8_t I2CInit(int address)
 {
+#ifdef USE_SPI
+	return WE_FAIL;
+	
+#else /* I2C is used */
   if ((i2c_handle = wiringPiI2CSetup(address)) < 0)
   {
     fprintf(stdout, "wiringPiI2CSetup Error\n");
@@ -55,6 +63,7 @@ int8_t I2CInit(int address)
   }
 
   return WE_SUCCESS;
+#endif
 }
 
 
@@ -72,7 +81,7 @@ int8_t SpiInit(int channel)
   }
   return WE_SUCCESS;
 
-#else
+#else /* I2C is used */
   return WE_FAIL;
 #endif
 }
@@ -108,7 +117,8 @@ int8_t ReadReg(uint8_t RegAdr, int NumByteToRead, uint8_t *Data)
   }
   return WE_SUCCESS;
 
-#else
+#else /* I2C is used */
+
   int ret = 0;
 
   if (NumByteToRead > 1)
@@ -169,7 +179,8 @@ int8_t WriteReg(uint8_t RegAdr, int NumByteToWrite, uint8_t *Data)
   }
   return WE_SUCCESS;
 
-#else
+#else /* I2C is used */
+
   if (0x00 != wiringPiI2CWriteReg8(i2c_handle, RegAdr, Data[0]))
   {
     return WE_FAIL;

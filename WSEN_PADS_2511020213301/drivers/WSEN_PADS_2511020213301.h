@@ -1,40 +1,40 @@
 /**
- ***************************************************************************************************
- * This file is part of Sensors SDK:
- * https://www.we-online.com/sensors
- *
- * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
- * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
- * TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
- * MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
- * WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
- * RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
- * COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
- * WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
- * FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
- * THEREOF
- *
- * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
- * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
- * IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
- *
- * COPYRIGHT (c) 2019 Würth Elektronik eiSos GmbH & Co. KG
- *
- ***************************************************************************************************
- **/
+***************************************************************************************************
+* This file is part of Sensors SDK:
+* https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
+*
+* THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
+* EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
+* TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
+* MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
+* WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
+* RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
+* COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
+* WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
+* FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
+* THEREOF
+*
+* THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+* FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+* IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
+*
+* COPYRIGHT (c) 2019 Würth Elektronik eiSos GmbH & Co. KG
+*
+***************************************************************************************************
+**/
 
 #ifndef _WSEN_PADS_H
 #define _WSEN_PADS_H
 
- /**         Includes         */
+/**         Includes         */
 
 #include <stdint.h> 											/* for support of uint8_t datatypes etc */
 #include "platform.h"
 
 /**         Available PADS 2511020213301 I2C Slave addresses         */
 
-#define PADS_ADDRESS_I2C_0					(uint8_t)0x5C
-#define PADS_ADDRESS_I2C_1					(uint8_t)0x5D
+#define PADS_ADDRESS_I2C_0					(uint8_t)0x5C /* when SAO of PADS is connected to logic LOW level */
+#define PADS_ADDRESS_I2C_1					(uint8_t)0x5D /* when SAO of PADS is connected to logic HIGH level */
 
 
 /**         PADS 2511020213301 DEVICE_ID         */
@@ -82,7 +82,7 @@
 * Address 0x0B
 * Type  R/W
 * Default value: 0x00
- */
+*/
 typedef struct {
 	uint8_t highPresInt : 1;	/* PHE: enable/disable interrupt on pressure low event (0: disabled; 1:enabled) */
 	uint8_t lowPresInt : 1;	/* PLE: enable/disable interrupt on pressure high event (0:disabled; 1:enabled) */
@@ -100,7 +100,7 @@ typedef struct {
 * Address 0x0C
 * Type  R/W
 * Default value: 0x00
- */
+*/
 typedef struct {
 	uint8_t presThresholdLsb : 8;	/* THR[7:0] This register contains the low part of threshold value for pressure interrupt */
 } PADS_threshold_p_l_t;
@@ -111,7 +111,7 @@ typedef struct {
 * Address 0x0D
 * Type  R/W
 * Default value: 0x00
- */
+*/
 typedef struct {
 	uint8_t presThresholdMsb : 7;	/* THR[14:8] This register contains the high part of threshold value for pressure interrupt */
 	uint8_t notUsed01 : 1;	/* This bit must be set to 0 for proper operation of the device */
@@ -298,8 +298,8 @@ typedef struct {
 /**         functional type definition         */
 
 typedef enum {
-	disable = 0,
-	enable = 1
+	PADS_disable = 0,
+	PADS_enable = 1
 } PADS_state_t;
 
 
@@ -362,139 +362,139 @@ extern "C"
 {
 #endif
 
-/**         Functions definition         */
+	/**         Functions definition         */
 
-int8_t PADS_getDeviceID(uint8_t *devID);
+	int8_t PADS_getDeviceID(uint8_t *devID);
 
-/* definition of Interrupt functions  */
-int8_t PADS_setAutoRefp(PADS_state_t autorep);
-int8_t PADS_getAutoRefpState(PADS_state_t *autoRefp);
-int8_t PADS_resetAutoRefp(PADS_state_t autorep);
+	/* definition of Interrupt functions  */
+	int8_t PADS_setAutoRefp(PADS_state_t autorep);
+	int8_t PADS_getAutoRefpState(PADS_state_t *autoRefp);
+	int8_t PADS_resetAutoRefp(PADS_state_t autorep);
 
-int8_t PADS_setAutoZeroFunction(PADS_state_t autozero);
-int8_t PADS_getAutoZeroState(PADS_state_t *autoZero);
-int8_t PADS_resetAutoZeroFunction(PADS_state_t autozeroRst);
+	int8_t PADS_setAutoZeroFunction(PADS_state_t autozero);
+	int8_t PADS_getAutoZeroState(PADS_state_t *autoZero);
+	int8_t PADS_resetAutoZeroFunction(PADS_state_t autozeroRst);
 
-int8_t PADS_setDiffPresInt(PADS_state_t diffEn);
-int8_t PADS_getDiffPresIntState(PADS_state_t *diffIntState);
+	int8_t PADS_setDiffPresInt(PADS_state_t diffEn);
+	int8_t PADS_getDiffPresIntState(PADS_state_t *diffIntState);
 
-int8_t PADS_setLatchInt(PADS_state_t state);
-int8_t PADS_getLatchIntState(PADS_state_t *latchInt);
+	int8_t PADS_setLatchInt(PADS_state_t state);
+	int8_t PADS_getLatchIntState(PADS_state_t *latchInt);
 
-int8_t PADS_setLowPresInt(PADS_state_t state);
-int8_t PADS_getLowPresIntState(PADS_state_t *lpint);
-int8_t PADS_setHighPresInt(PADS_state_t state);
-int8_t PADS_getHighPresIntState(PADS_state_t *hpint);
+	int8_t PADS_setLowPresInt(PADS_state_t state);
+	int8_t PADS_getLowPresIntState(PADS_state_t *lpint);
+	int8_t PADS_setHighPresInt(PADS_state_t state);
+	int8_t PADS_getHighPresIntState(PADS_state_t *hpint);
 
-int8_t PADS_getIntStatus(PADS_state_t *intState);
-int8_t PADS_getLowPresIntStatus(PADS_state_t *lpState);
-int8_t PADS_getHighPresIntStatus(PADS_state_t *hpState);
+	int8_t PADS_getIntStatus(PADS_state_t *intState);
+	int8_t PADS_getLowPresIntStatus(PADS_state_t *lpState);
+	int8_t PADS_getHighPresIntStatus(PADS_state_t *hpState);
 
-int8_t PADS_setFifoFullInt(PADS_state_t fullState);
-int8_t PADS_setFifoWtmInt(PADS_state_t WtmState);
-int8_t PADS_setFifoOvrInt(PADS_state_t OvrState);
+	int8_t PADS_setFifoFullInt(PADS_state_t fullState);
+	int8_t PADS_setFifoWtmInt(PADS_state_t WtmState);
+	int8_t PADS_setFifoOvrInt(PADS_state_t OvrState);
 
-int8_t PADS_setFifoOvrInterrupt(PADS_state_t OvrState);
+	int8_t PADS_setFifoOvrInterrupt(PADS_state_t OvrState);
 
-int8_t PADS_getFifoFullState(PADS_state_t *fifoFull);
-int8_t PADS_getFifoWtmState(PADS_state_t *fifoWtm);
-int8_t PADS_getFifoOvrState(PADS_state_t *fifoOvr);
+	int8_t PADS_getFifoFullState(PADS_state_t *fifoFull);
+	int8_t PADS_getFifoWtmState(PADS_state_t *fifoWtm);
+	int8_t PADS_getFifoOvrState(PADS_state_t *fifoOvr);
 
-int8_t  PADS_setDrdyInt(PADS_state_t DRDYStatus);
-int8_t PADS_getDrdyIntState(PADS_state_t *drdy);
+	int8_t  PADS_setDrdyInt(PADS_state_t DRDYStatus);
+	int8_t PADS_getDrdyIntState(PADS_state_t *drdy);
 
-int8_t  PADS_setIntEventCtrl(PADS_interrupt_event_t ctr);
-int8_t PADS_getIntEventCtrlState(PADS_interrupt_event_t *intEvent);
+	int8_t  PADS_setIntEventCtrl(PADS_interrupt_event_t ctr);
+	int8_t PADS_getIntEventCtrlState(PADS_interrupt_event_t *intEvent);
 
-int8_t  PADS_setPresThrLSB(uint8_t thr);
-int8_t  PADS_setPresThrMSB(uint8_t thr);
-int8_t PADS_getPresThrLSB(uint8_t *thrLSB);
-int8_t PADS_getPresThrMSB(uint8_t *thrMSB);
+	int8_t  PADS_setPresThrLSB(uint8_t thr);
+	int8_t  PADS_setPresThrMSB(uint8_t thr);
+	int8_t PADS_getPresThrLSB(uint8_t *thrLSB);
+	int8_t PADS_getPresThrMSB(uint8_t *thrMSB);
 
-/* Standard Configurations */
-int8_t  PADS_disI2C(PADS_state_t I2CStatus);
-int8_t PADS_getI2CState(PADS_state_t *i2cState);
-int8_t  PADS_disPullDownIntPin(PADS_state_t pullDown);
-int8_t PADS_getPullDownIntPinState(PADS_state_t *pinState);
-int8_t  PADS_setSAOPullUp(PADS_state_t SaoStatus);
-int8_t PADS_getSAOPullUpState(PADS_state_t *saoPinState);
-int8_t  PADS_setSDAPullUp(PADS_state_t SdaStatus);
-int8_t PADS_getSDAPullUpState(PADS_state_t *sdaPinState);
+	/* Standard Configurations */
+	int8_t  PADS_disI2C(PADS_state_t I2CStatus);
+	int8_t PADS_getI2CState(PADS_state_t *i2cState);
+	int8_t  PADS_disPullDownIntPin(PADS_state_t pullDown);
+	int8_t PADS_getPullDownIntPinState(PADS_state_t *pinState);
+	int8_t  PADS_setSAOPullUp(PADS_state_t SaoStatus);
+	int8_t PADS_getSAOPullUpState(PADS_state_t *saoPinState);
+	int8_t  PADS_setSDAPullUp(PADS_state_t SdaStatus);
+	int8_t PADS_getSDAPullUpState(PADS_state_t *sdaPinState);
 
 
-int8_t  PADS_setOutputDataRate(PADS_output_data_rate_t odr);
-int8_t PADS_getOutputDataRate(PADS_output_data_rate_t* odr);
+	int8_t  PADS_setOutputDataRate(PADS_output_data_rate_t odr);
+	int8_t PADS_getOutputDataRate(PADS_output_data_rate_t* odr);
 
-int8_t  PADS_setLowPassFilter(PADS_state_t filterStatus);
-int8_t PADS_getLowPassFilterStatus(PADS_state_t *filterStatus);
-int8_t  PADS_setLowPassFilterConf(PADS_filter_conf_t conf);
-int8_t PADS_getLowPassFilterConf(PADS_filter_conf_t *conf);
+	int8_t  PADS_setLowPassFilter(PADS_state_t filterStatus);
+	int8_t PADS_getLowPassFilterStatus(PADS_state_t *filterStatus);
+	int8_t  PADS_setLowPassFilterConf(PADS_filter_conf_t conf);
+	int8_t PADS_getLowPassFilterConf(PADS_filter_conf_t *conf);
 
-int8_t  PADS_setBlockDataUpdate(PADS_state_t bdu);
-int8_t PADS_getBlockDataUpdateState(PADS_state_t *bdu);
+	int8_t  PADS_setBlockDataUpdate(PADS_state_t bdu);
+	int8_t PADS_getBlockDataUpdateState(PADS_state_t *bdu);
 
-int8_t  PADS_rebootMemory(PADS_state_t reboot);
-int8_t PADS_getRebootMemoryState(PADS_state_t *reboot);
-int8_t PADS_getBootStatus(PADS_state_t *boot);
+	int8_t  PADS_rebootMemory(PADS_state_t reboot);
+	int8_t PADS_getRebootMemoryState(PADS_state_t *reboot);
+	int8_t PADS_getBootStatus(PADS_state_t *boot);
 
-int8_t  PADS_setIntActiveLevel(PADS_interrupt_level_t intLvl);
-int8_t PADS_getIntActiveLevel(PADS_interrupt_level_t *intLvl);
+	int8_t  PADS_setIntActiveLevel(PADS_interrupt_level_t intLvl);
+	int8_t PADS_getIntActiveLevel(PADS_interrupt_level_t *intLvl);
 
-int8_t  PADS_setIntPinType(PADS_interrupt_pin_t intr);
-int8_t PADS_getIntPinType(PADS_interrupt_pin_t *intr);
+	int8_t  PADS_setIntPinType(PADS_interrupt_pin_t intr);
+	int8_t PADS_getIntPinType(PADS_interrupt_pin_t *intr);
 
-int8_t  PADS_setAutoIncrement(PADS_state_t inc);
-int8_t PADS_getAutoIncrementState(PADS_state_t *inc);
+	int8_t  PADS_setAutoIncrement(PADS_state_t inc);
+	int8_t PADS_getAutoIncrementState(PADS_state_t *inc);
 
-int8_t  PADS_setSwreset(PADS_state_t mode);
-int8_t PADS_getSwresetState(PADS_state_t *mode);
+	int8_t  PADS_setSwreset(PADS_state_t mode);
+	int8_t PADS_getSwresetState(PADS_state_t *mode);
 
-int8_t  PADS_setPowerMode(PADS_pwr_mode_t mode);
-int8_t PADS_getPowerMode(PADS_pwr_mode_t *mode);
+	int8_t  PADS_setPowerMode(PADS_pwr_mode_t mode);
+	int8_t PADS_getPowerMode(PADS_pwr_mode_t *mode);
 
-int8_t  PADS_setSingleConvMode(PADS_state_t mode);
-int8_t PADS_getSingleConvModeState(PADS_state_t *mode);
+	int8_t  PADS_setSingleConvMode(PADS_state_t mode);
+	int8_t PADS_getSingleConvModeState(PADS_state_t *mode);
 
-/* pressure offset value */
-int8_t  PADS_setPresOffsetLSB(uint8_t offSet);
-int8_t PADS_getPresOffsetLSB(uint8_t *offSet);
-int8_t  PADS_setPresOffsetMSB(uint8_t offSet);
-int8_t PADS_getPresOffsetMSB(uint8_t *offSet);
+	/* pressure offset value */
+	int8_t  PADS_setPresOffsetLSB(uint8_t offSet);
+	int8_t PADS_getPresOffsetLSB(uint8_t *offSet);
+	int8_t  PADS_setPresOffsetMSB(uint8_t offSet);
+	int8_t PADS_getPresOffsetMSB(uint8_t *offSet);
 
-/* SET FIFO CTRL_REG */
-int8_t  PADS_setFifoMode(PADS_fifo_mode_t fifoMode);
-int8_t PADS_getFifoMode(PADS_fifo_mode_t *fifoMode);
+	/* SET FIFO CTRL_REG */
+	int8_t  PADS_setFifoMode(PADS_fifo_mode_t fifoMode);
+	int8_t PADS_getFifoMode(PADS_fifo_mode_t *fifoMode);
 
-int8_t  PADS_setStopOnThr(PADS_state_t state);
-int8_t PADS_getStopOnThrStatus(PADS_state_t *state);
+	int8_t  PADS_setStopOnThr(PADS_state_t state);
+	int8_t PADS_getStopOnThrStatus(PADS_state_t *state);
 
-int8_t  PADS_setFifoThr(uint8_t fifoThr);
-int8_t PADS_getFifoThr(uint8_t *fifoThr);
+	int8_t  PADS_setFifoThr(uint8_t fifoThr);
+	int8_t PADS_getFifoThr(uint8_t *fifoThr);
 
-int8_t PADS_getFifoFillLevel(uint8_t *fifoLevel);
+	int8_t PADS_getFifoFillLevel(uint8_t *fifoLevel);
 
-/* Getting Reference pressure value */
-int8_t PADS_getPresRefLSB(uint8_t *lowReferenceValue);
-int8_t PADS_getPresRefMSB(uint8_t *highReferenceValue);
+	/* Getting Reference pressure value */
+	int8_t PADS_getPresRefLSB(uint8_t *lowReferenceValue);
+	int8_t PADS_getPresRefMSB(uint8_t *highReferenceValue);
 
-/* Temperature and Pressure data overrun State */
-int8_t PADS_getTemperOverrunStatus(PADS_state_t *state);
-int8_t PADS_getPressureOverrunStatus(PADS_state_t *state);
-/* Temperature and Pressure data available State */
-int8_t PADS_getTempStatus(PADS_state_t *state);
-int8_t PADS_getPresStatus(PADS_state_t *state);
+	/* Temperature and Pressure data overrun State */
+	int8_t PADS_getTemperOverrunStatus(PADS_state_t *state);
+	int8_t PADS_getPressureOverrunStatus(PADS_state_t *state);
+	/* Temperature and Pressure data available State */
+	int8_t PADS_getTempStatus(PADS_state_t *state);
+	int8_t PADS_getPresStatus(PADS_state_t *state);
 
-/* standard Data Out */
-int8_t PADS_getRAWPressure(int32_t *rawPres);
-int8_t PADS_getRAWTemperature(int16_t *rawTemp);
-int8_t PADS_getPressure(float *presskPa);     // Pressure Value in kPa
-int8_t PADS_getTemperature(float *tempdegC);  // Temperature Value in °C
+	/* standard Data Out */
+	int8_t PADS_getRAWPressure(int32_t *rawPres);
+	int8_t PADS_getRAWTemperature(int16_t *rawTemp);
+	int8_t PADS_getPressure(float *presskPa);     // Pressure Value in kPa
+	int8_t PADS_getTemperature(float *tempdegC);  // Temperature Value in °C
 
-/*Fifo Data Out */
-int8_t PADS_getFifoRAWTemperature(int16_t *rawTemp);
-int8_t PADS_getFifoRAWPressure(int32_t *rawPres);
-int8_t PADS_getFifoTemperature(float *tempdegC);  // Temperature Value in °C
-int8_t PADS_getFifoPressure(float *presskPa);    // Pressure Value in kPa
+	/*Fifo Data Out */
+	int8_t PADS_getFifoRAWTemperature(int16_t *rawTemp);
+	int8_t PADS_getFifoRAWPressure(int32_t *rawPres);
+	int8_t PADS_getFifoTemperature(float *tempdegC);  // Temperature Value in °C
+	int8_t PADS_getFifoPressure(float *presskPa);    // Pressure Value in kPa
 
 #ifdef __cplusplus
 }

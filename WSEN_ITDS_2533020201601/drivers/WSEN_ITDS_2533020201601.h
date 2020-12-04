@@ -1,32 +1,32 @@
 /**
- ***************************************************************************************************
- * This file is part of Sensors SDK:
- * https://www.we-online.com/sensors
- *
- * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
- * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
- * TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
- * MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
- * WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
- * RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
- * COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
- * WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
- * FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
- * THEREOF
- *
- * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
- * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
- * IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
- *
- * COPYRIGHT (c) 2019 Würth Elektronik eiSos GmbH & Co. KG
- *
- ***************************************************************************************************
- **/
- 
- 
+***************************************************************************************************
+* This file is part of Sensors SDK:
+* https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
+*
+* THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
+* EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
+* TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
+* MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
+* WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
+* RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
+* COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
+* WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
+* FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
+* THEREOF
+*
+* THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+* FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+* IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
+*
+* COPYRIGHT (c) 2019 Würth Elektronik eiSos GmbH & Co. KG
+*
+***************************************************************************************************
+**/
+
+
 #ifndef _WSEN_ITDS_H
 #define _WSEN_ITDS_H
- 
+
 #include <stdint.h>
 #include "platform.h"
 
@@ -37,7 +37,7 @@
 #define ITDS_ADDRESS_I2C_1                0x19			/* when SAO of ITDS is connected to logic LOW level */
 
 
- /** Register address definitions **/
+/** Register address definitions **/
 
 #define ITDS_T_OUT_L_REG                  0x0D     /* Temperature Output LSB value Register */
 #define ITDS_T_OUT_H_REG                  0x0E	   /* Temperature Output MSB value Register */
@@ -85,10 +85,10 @@
 * Type  R/W
 * Default value: 0x00
 
-  ODR[3:0]   |    Power down / data rate configuration
- --------------------------------------------------------------------------
+ODR[3:0]   |    Power down / data rate configuration
+--------------------------------------------------------------------------
 	0000    |                Power down
-				 High performance     Normal mode   Low power mode
+				High performance     Normal mode   Low power mode
 	0001    |    12.5 Hz                12.5 Hz        1.6 Hz
 	0010    |    12.5 Hz                12.5 Hz        12.5 Hz
 	0011    |    25 Hz                  25 Hz          25 Hz
@@ -100,8 +100,8 @@
 	1001    |    1600Hz                 1600Hz         200 Hz
 
 
-  MODE[1:0] |             Operating mode and resolution
-  --------------------------------------------------------------------------------
+MODE[1:0] |             Operating mode and resolution
+--------------------------------------------------------------------------------
 	00      |       Normal mode (14-bit resolution) / Low power mode (12-bit resolution)
 	01      |       High performance mode(14-bit resolution)
 	10      |       Single data conversion on demand mode (12/14-bit resolution)
@@ -138,7 +138,7 @@ typedef struct {
 
 
 	ST[1:0]    |     Self-test mode
- -------------------------------------------
+-------------------------------------------
 	00         |     Normal mode
 	01         |     Positive sign self-test
 	10         |     Negative sign self-test
@@ -159,7 +159,7 @@ typedef struct {
 * Address 0x23
 * Type  R/W
 * Default value: 0x00
- */
+*/
 typedef struct {
 	uint8_t dataReadyINT0 : 1;      /* INT0_DRDY : Data-Ready interrupt signal is routed to INT_0 pin. Default value: 0 (0:disabled, 1: enabled) */
 	uint8_t fifoThresholdINT0 : 1;  /* INT0_FTH : FIFO threshold interrupt signal is routed to INT_0 pin. Default value: 0 (0:disabled, 1: enabled)) */
@@ -176,7 +176,7 @@ typedef struct {
 * Address 0x24
 * Type  R/W
 * Default value: 0x00
- */
+*/
 typedef struct {
 	uint8_t dataReadyINT1 : 1;      /* INT1_DRDY : Data-Ready interrupt signal is routed to INT_1 pin. Default value: 0 (0:disabled, 1: enabled) */
 	uint8_t fifoThresholdINT1 : 1;  /* INT1_FTH : FIFO threshold interrupt signal is routed to INT_1 pin. Default value: 0 (0:disabled, 1: enabled)) */
@@ -196,7 +196,7 @@ typedef struct {
 
 
 	BW_FILT[1:0]    |          Bandwidth selection
-   -------------------------------------------------------------
+-------------------------------------------------------------
 		00          |    ODR/2 (except for ODR = 1600 Hz, 400 Hz)
 		01          |    ODR/4 (High pass / Low pass filter)
 		10          |    ODR/10 (High pass / Low pass filter)
@@ -205,13 +205,13 @@ typedef struct {
 
 
 		FS[1:0]    |   Full scale selection
-	   -------------------------------
+	-------------------------------
 			00     |      ±2g
 			01     |      ±4g
 			10     |      ±8g
 			11     |      ±16g
 
- */
+*/
 typedef struct {
 	uint8_t not_used_01 : 1;     /* This bit must be set to 0 for proper operation of the device */
 	uint8_t not_used_02 : 1;     /* This bit must be set to 0 for proper operation of the device */
@@ -284,7 +284,7 @@ typedef struct
 
 
 	6D_THS[1:0]  |   Threshold definition (degrees)
-   -------------------------------------------
+-------------------------------------------
 		00       |           6 (80 degrees)
 		01       |           11(70 degrees)
 		10       |           16(60 degrees)
@@ -305,7 +305,7 @@ typedef struct
 * Default value: 0x00
 
 	TAP_PRIOR[2:0]  |  Max Priority  | Mid Priority  | Min Priority
-	 ------------------------------------------------------
+	------------------------------------------------------
 		000         |    X           |     Y         |    Z
 		001         |    Y           |     X         |    Z
 		010         |    X           |     Z         |    Y
@@ -383,7 +383,7 @@ typedef struct
 * Default value: 0x00
 
 	FF_TH[2:0]  |  Threshold decoding (LSB)
-  -----------------------------------------
+-----------------------------------------
 		000     |        5
 		001     |        7
 		010     |        8
@@ -510,8 +510,8 @@ typedef struct
 
 
 typedef enum {
-	disable = 0,
-	enable = 1
+	ITDS_disable = 0,
+	ITDS_enable = 1
 }ITDS_state_t;
 
 typedef enum {
@@ -521,7 +521,7 @@ typedef enum {
 
 typedef enum {
 	odr0,           /*Power down */
-					/* High performance     Normal mode   Low power mode */
+	/* High performance     Normal mode   Low power mode */
 	odr1,    		/* 12.5 Hz                12.5 Hz        1.6 Hz      */
 	odr2,           /* 12.5 Hz                12.5 Hz        12.5 Hz     */
 	odr3,           /* 25 Hz                  25 Hz          25 Hz       */
@@ -631,242 +631,242 @@ extern "C"
 {
 #endif
 
-/* **********************/
-/* Functions definition */
-/* **********************/
+	/* **********************/
+	/* Functions definition */
+	/* **********************/
 
-/* DEVICE_ID */
-int8_t  ITDS_getDeviceID(uint8_t *device_id) ;
+	/* DEVICE_ID */
+	int8_t  ITDS_getDeviceID(uint8_t *device_id) ;
 
-/* CTRL-REG 1 */
-int8_t  ITDS_setOutputDataRate(ITDS_output_Data_Rate odr);
-int8_t  ITDS_getOutputDataRate(uint8_t *odr) ;
-int8_t  ITDS_setOperatingMode(ITDS_operating_mode operatingMode);
-int8_t  ITDS_getOperatingMode(uint8_t *opMode);
-int8_t  ITDS_setpowerMode(ITDS_power_mode lowOrNormalMode);
-int8_t  ITDS_getpowerMode(uint8_t *powerMode);
+	/* CTRL-REG 1 */
+	int8_t  ITDS_setOutputDataRate(ITDS_output_Data_Rate odr);
+	int8_t  ITDS_getOutputDataRate(uint8_t *odr) ;
+	int8_t  ITDS_setOperatingMode(ITDS_operating_mode operatingMode);
+	int8_t  ITDS_getOperatingMode(uint8_t *opMode);
+	int8_t  ITDS_setpowerMode(ITDS_power_mode lowOrNormalMode);
+	int8_t  ITDS_getpowerMode(uint8_t *powerMode);
 
-/* CTRL-REG 2 */
-int8_t  ITDS_reboot(ITDS_state_t rebootmode);
-int8_t  ITDS_getBootState(ITDS_state_t *boot);
-int8_t  ITDS_softReset(ITDS_state_t Swreset_mode);
-int8_t  ITDS_getsoftResetState(ITDS_state_t *swReset );
-int8_t  ITDS_ConfigCSPullup(ITDS_state_t CSPullup);
-int8_t  ITDS_getCSConfigState(ITDS_state_t *configCS);
-int8_t  ITDS_setBlockDataUpdate(ITDS_state_t bdu);
-int8_t  ITDS_getBlockDataUpdateState(ITDS_state_t *bdu);
-int8_t  ITDS_setAutoIncrement(ITDS_state_t autoInc);
-int8_t  ITDS_getAutoIncrementState(ITDS_state_t *autoIncr);
-int8_t  ITDS_disableI2CInterface(ITDS_state_t I2CStatus);
-int8_t  ITDS_getI2CInterfaceState(ITDS_state_t *i2cState);
+	/* CTRL-REG 2 */
+	int8_t  ITDS_reboot(ITDS_state_t rebootmode);
+	int8_t  ITDS_getBootState(ITDS_state_t *boot);
+	int8_t  ITDS_softReset(ITDS_state_t Swreset_mode);
+	int8_t  ITDS_getsoftResetState(ITDS_state_t *swReset );
+	int8_t  ITDS_ConfigCSPullup(ITDS_state_t CSPullup);
+	int8_t  ITDS_getCSConfigState(ITDS_state_t *configCS);
+	int8_t  ITDS_setBlockDataUpdate(ITDS_state_t bdu);
+	int8_t  ITDS_getBlockDataUpdateState(ITDS_state_t *bdu);
+	int8_t  ITDS_setAutoIncrement(ITDS_state_t autoInc);
+	int8_t  ITDS_getAutoIncrementState(ITDS_state_t *autoIncr);
+	int8_t  ITDS_disableI2CInterface(ITDS_state_t I2CStatus);
+	int8_t  ITDS_getI2CInterfaceState(ITDS_state_t *i2cState);
 
-/* CTRL-REG 3 */
-int8_t  ITDS_setSelfTestMode(ITDS_self_Test_Config selfTest);
-int8_t  ITDS_getSelfTestMode(ITDS_state_t *selfTest);
-int8_t  ITDS_setIntPinType(ITDS_interrupt_Pin_Config interruptType);
-int8_t  ITDS_getIntPinType(ITDS_state_t *intType);
-int8_t  ITDS_enLatchInt(ITDS_state_t lir);
-int8_t  ITDS_getLatchIntState(ITDS_state_t *lir);
-int8_t  ITDS_setIntActiveLevel(ITDS_interrupt_Active_Level lowHighLevel);
-int8_t  ITDS_getIntActiveLevel(ITDS_interrupt_Active_Level *lowHighLevel);
-int8_t  ITDS_setSingleConvInput(ITDS_singleDataConversion_Input slpModeSel);
-int8_t  ITDS_getSingleConvInput(ITDS_singleDataConversion_Input *slpModeSel);
-int8_t  ITDS_enSingleDataConv(ITDS_state_t slpMode1);
-int8_t  ITDS_getSingleDataConvState(ITDS_state_t *slpMode1) ;
+	/* CTRL-REG 3 */
+	int8_t  ITDS_setSelfTestMode(ITDS_self_Test_Config selfTest);
+	int8_t  ITDS_getSelfTestMode(ITDS_state_t *selfTest);
+	int8_t  ITDS_setIntPinType(ITDS_interrupt_Pin_Config interruptType);
+	int8_t  ITDS_getIntPinType(ITDS_state_t *intType);
+	int8_t  ITDS_enLatchInt(ITDS_state_t lir);
+	int8_t  ITDS_getLatchIntState(ITDS_state_t *lir);
+	int8_t  ITDS_setIntActiveLevel(ITDS_interrupt_Active_Level lowHighLevel);
+	int8_t  ITDS_getIntActiveLevel(ITDS_interrupt_Active_Level *lowHighLevel);
+	int8_t  ITDS_setSingleConvInput(ITDS_singleDataConversion_Input slpModeSel);
+	int8_t  ITDS_getSingleConvInput(ITDS_singleDataConversion_Input *slpModeSel);
+	int8_t  ITDS_enSingleDataConv(ITDS_state_t slpMode1);
+	int8_t  ITDS_getSingleDataConvState(ITDS_state_t *slpMode1) ;
 
-/* CTRL-REG 4 */
-int8_t  ITDS_set6DOnINT0(ITDS_state_t int06D);
-int8_t  ITDS_get6DOnINT0State(ITDS_state_t *int06D);
-int8_t  ITDS_enSingleTapINT0(ITDS_state_t int0SingleTap);
-int8_t  ITDS_getSingleTapINT0(ITDS_state_t *int0SingleTap);
-int8_t  ITDS_enWakeupOnINT0(ITDS_state_t int0Wakeup);
-int8_t  ITDS_getWakeupOnINT0(ITDS_state_t *int0Wakeup);
-int8_t  ITDS_enFreeFallINT0(ITDS_state_t int0FreeFall);
-int8_t  ITDS_getFreeFallINT0(ITDS_state_t *int0FreeFall);
-int8_t  ITDS_enDoubleTapINT0(ITDS_state_t int0DoubleTap);
-int8_t  ITDS_getDoubleTapINT0(ITDS_state_t *int0DoubleTap);
-int8_t  ITDS_enFifoFullINT0(ITDS_state_t int0FifoFull);
-int8_t  ITDS_getFifoFullINT0(ITDS_state_t *int0FifoFull);
-int8_t  ITDS_enFifoThresholdINT0(ITDS_state_t int0FifoThresholdInt);
-int8_t  ITDS_getFifoThresholdINT0(ITDS_state_t *int0FifoThresholdInt);
-int8_t  ITDS_enDataReadyINT0(ITDS_state_t int0DataReadyInt);
-int8_t  ITDS_getDataReadyINT0(ITDS_state_t *int0DataReadyInt);
+	/* CTRL-REG 4 */
+	int8_t  ITDS_set6DOnINT0(ITDS_state_t int06D);
+	int8_t  ITDS_get6DOnINT0State(ITDS_state_t *int06D);
+	int8_t  ITDS_enSingleTapINT0(ITDS_state_t int0SingleTap);
+	int8_t  ITDS_getSingleTapINT0(ITDS_state_t *int0SingleTap);
+	int8_t  ITDS_enWakeupOnINT0(ITDS_state_t int0Wakeup);
+	int8_t  ITDS_getWakeupOnINT0(ITDS_state_t *int0Wakeup);
+	int8_t  ITDS_enFreeFallINT0(ITDS_state_t int0FreeFall);
+	int8_t  ITDS_getFreeFallINT0(ITDS_state_t *int0FreeFall);
+	int8_t  ITDS_enDoubleTapINT0(ITDS_state_t int0DoubleTap);
+	int8_t  ITDS_getDoubleTapINT0(ITDS_state_t *int0DoubleTap);
+	int8_t  ITDS_enFifoFullINT0(ITDS_state_t int0FifoFull);
+	int8_t  ITDS_getFifoFullINT0(ITDS_state_t *int0FifoFull);
+	int8_t  ITDS_enFifoThresholdINT0(ITDS_state_t int0FifoThresholdInt);
+	int8_t  ITDS_getFifoThresholdINT0(ITDS_state_t *int0FifoThresholdInt);
+	int8_t  ITDS_enDataReadyINT0(ITDS_state_t int0DataReadyInt);
+	int8_t  ITDS_getDataReadyINT0(ITDS_state_t *int0DataReadyInt);
 
-/* CTRL-REG 5 */
-int8_t  ITDS_enInactivityINT1(ITDS_state_t intSleepState);
-int8_t  ITDS_getInactivityINT1(ITDS_state_t *intSleepState);
-int8_t  ITDS_enActivityINT1(ITDS_state_t int1SleepChange);
-int8_t  ITDS_getActivityINT1(ITDS_state_t *int1SleepChange);
-int8_t  ITDS_enBootStatusINT1(ITDS_state_t int1Boot);
-int8_t  ITDS_getBootStatusINT1(ITDS_state_t *int1Boot);
-int8_t  ITDS_enTempDataReadyINT1(ITDS_state_t int1TempDataReady);
-int8_t  ITDS_getTempDataReadyINT1(ITDS_state_t *int1TempDataReady);
-int8_t  ITDS_enFifoOverrunIntINT1(ITDS_state_t int1FifoOverrun);
-int8_t  ITDS_getFifoOverrunIntINT1(ITDS_state_t *int1FifoOverrun);
-int8_t  ITDS_enFifoFullINT1(ITDS_state_t int1FifoFull);
-int8_t  ITDS_getFifoFullINT1(ITDS_state_t *int1FifoFull);
-int8_t  ITDS_enFifoThresholdIntINT1(ITDS_state_t int1FifoThresholdInt);
-int8_t  ITDS_getFifoThresholdINT1(ITDS_state_t *int1FifoThresholdInt);
-int8_t  ITDS_enDataReadyINT1(ITDS_state_t int1DataReadyInt);
-int8_t  ITDS_getDataReadyINT1(ITDS_state_t *int1DataReadyInt);
+	/* CTRL-REG 5 */
+	int8_t  ITDS_enInactivityINT1(ITDS_state_t intSleepState);
+	int8_t  ITDS_getInactivityINT1(ITDS_state_t *intSleepState);
+	int8_t  ITDS_enActivityINT1(ITDS_state_t int1SleepChange);
+	int8_t  ITDS_getActivityINT1(ITDS_state_t *int1SleepChange);
+	int8_t  ITDS_enBootStatusINT1(ITDS_state_t int1Boot);
+	int8_t  ITDS_getBootStatusINT1(ITDS_state_t *int1Boot);
+	int8_t  ITDS_enTempDataReadyINT1(ITDS_state_t int1TempDataReady);
+	int8_t  ITDS_getTempDataReadyINT1(ITDS_state_t *int1TempDataReady);
+	int8_t  ITDS_enFifoOverrunIntINT1(ITDS_state_t int1FifoOverrun);
+	int8_t  ITDS_getFifoOverrunIntINT1(ITDS_state_t *int1FifoOverrun);
+	int8_t  ITDS_enFifoFullINT1(ITDS_state_t int1FifoFull);
+	int8_t  ITDS_getFifoFullINT1(ITDS_state_t *int1FifoFull);
+	int8_t  ITDS_enFifoThresholdIntINT1(ITDS_state_t int1FifoThresholdInt);
+	int8_t  ITDS_getFifoThresholdINT1(ITDS_state_t *int1FifoThresholdInt);
+	int8_t  ITDS_enDataReadyINT1(ITDS_state_t int1DataReadyInt);
+	int8_t  ITDS_getDataReadyINT1(ITDS_state_t *int1DataReadyInt);
 
-/* CTRL-REG 6 */
-int8_t  ITDS_setFilteringCutoff(ITDS_bandwidth filteringCutoff);
-int8_t  ITDS_getFilteringCutoff(ITDS_bandwidth *filteringCutoff);
-int8_t  ITDS_setFullScale(ITDS_full_Scale fullScale_t);
-int8_t  ITDS_getFullScale(ITDS_full_Scale *fullScale_t);
-int8_t  ITDS_setfilterPath(ITDS_filter_Type filterType);
-int8_t  ITDS_getfilterPath(ITDS_filter_Type *filterType);
-int8_t  ITDS_enLowNoise(ITDS_state_t lowNoise);
-int8_t  ITDS_getLowNoiseState(ITDS_state_t *lowNoise);
+	/* CTRL-REG 6 */
+	int8_t  ITDS_setFilteringCutoff(ITDS_bandwidth filteringCutoff);
+	int8_t  ITDS_getFilteringCutoff(ITDS_bandwidth *filteringCutoff);
+	int8_t  ITDS_setFullScale(ITDS_full_Scale fullScale_t);
+	int8_t  ITDS_getFullScale(ITDS_full_Scale *fullScale_t);
+	int8_t  ITDS_setfilterPath(ITDS_filter_Type filterType);
+	int8_t  ITDS_getfilterPath(ITDS_filter_Type *filterType);
+	int8_t  ITDS_enLowNoise(ITDS_state_t lowNoise);
+	int8_t  ITDS_getLowNoiseState(ITDS_state_t *lowNoise);
 
-/* Status */
-int8_t  ITDS_getdataReadyState(ITDS_state_t *drdy);
-int8_t  ITDS_getfreeFallState(ITDS_state_t *freeFall);
-int8_t  ITDS_get6DState(ITDS_state_t *sixD);
-int8_t  ITDS_getsingleTapState(ITDS_state_t *singleTap);
-int8_t  ITDS_getdoubleTapState(ITDS_state_t *doubleTap);
-int8_t  ITDS_getsleepState(ITDS_state_t *sleepState );
-int8_t  ITDS_getwakeupState(ITDS_state_t *wakeupState );
-int8_t  ITDS_getFifoThresholdStatus(ITDS_state_t *fifoTHR);
+	/* Status */
+	int8_t  ITDS_getdataReadyState(ITDS_state_t *drdy);
+	int8_t  ITDS_getfreeFallState(ITDS_state_t *freeFall);
+	int8_t  ITDS_get6DState(ITDS_state_t *sixD);
+	int8_t  ITDS_getsingleTapState(ITDS_state_t *singleTap);
+	int8_t  ITDS_getdoubleTapState(ITDS_state_t *doubleTap);
+	int8_t  ITDS_getsleepState(ITDS_state_t *sleepState );
+	int8_t  ITDS_getwakeupState(ITDS_state_t *wakeupState );
+	int8_t  ITDS_getFifoThresholdStatus(ITDS_state_t *fifoTHR);
 
-/*acceleration Output */
-int8_t  ITDS_getRawAccelerationX(int16_t *XRawAcc);
-int8_t  ITDS_getRawAccelerationY(int16_t *YRawAcc) ;
-int8_t  ITDS_getRawAccelerationZ(int16_t *ZRawAcc);
+	/*acceleration Output */
+	int8_t  ITDS_getRawAccelerationX(int16_t *XRawAcc);
+	int8_t  ITDS_getRawAccelerationY(int16_t *YRawAcc) ;
+	int8_t  ITDS_getRawAccelerationZ(int16_t *ZRawAcc);
 
-/* Temperature output */
-int8_t  ITDS_getTemperature8bit(uint8_t *temp8bit);
-int8_t  ITDS_getRawTemp12bit(int16_t *temp12bit);
-int8_t  ITDS_getTemperature12bit(float *tempdegC);
+	/* Temperature output */
+	int8_t  ITDS_getTemperature8bit(uint8_t *temp8bit);
+	int8_t  ITDS_getRawTemp12bit(int16_t *temp12bit);
+	int8_t  ITDS_getTemperature12bit(float *tempdegC);
 
-/* FIFO CTRL */
-int8_t  ITDS_setFifoMode(ITDS_Fifo_Mode FMode);
-int8_t  ITDS_getFifoMode(ITDS_Fifo_Mode *FMode);
-int8_t  ITDS_setFifoThreshold(uint8_t fifo_Threshold);
-int8_t  ITDS_getFifoThreshold(uint8_t *fifo_Threshold);
+	/* FIFO CTRL */
+	int8_t  ITDS_setFifoMode(ITDS_Fifo_Mode FMode);
+	int8_t  ITDS_getFifoMode(ITDS_Fifo_Mode *FMode);
+	int8_t  ITDS_setFifoThreshold(uint8_t fifo_Threshold);
+	int8_t  ITDS_getFifoThreshold(uint8_t *fifo_Threshold);
 
-/* FIFO_SAMPLES */
-int8_t  ITDS_getFifoThresholdState(ITDS_state_t *fifoTHR);
-int8_t  ITDS_getFifoOverrunState(ITDS_state_t *fifoOverrun);
-int8_t  ITDS_getFifoFillLevel(uint8_t *fifoFill);
+	/* FIFO_SAMPLES */
+	int8_t  ITDS_getFifoThresholdState(ITDS_state_t *fifoTHR);
+	int8_t  ITDS_getFifoOverrunState(ITDS_state_t *fifoOverrun);
+	int8_t  ITDS_getFifoFillLevel(uint8_t *fifoFill);
 
-/* TAP_X_TH */
-int8_t  ITDS_en4DDetection(ITDS_state_t detection4D);
-int8_t  ITDS_get4DDetectionState(ITDS_state_t *detection4D);
-int8_t  ITDS_setTapThresholdX(uint8_t tapThresholdX);
-int8_t  ITDS_getTapThresholdX(uint8_t *tapThresholdX);
-int8_t  ITDS_set6DThreshold(ITDS_threshold_Degree threshold6D);
-int8_t  ITDS_get6DThreshold(ITDS_threshold_Degree *threshold6D);
+	/* TAP_X_TH */
+	int8_t  ITDS_en4DDetection(ITDS_state_t detection4D);
+	int8_t  ITDS_get4DDetectionState(ITDS_state_t *detection4D);
+	int8_t  ITDS_setTapThresholdX(uint8_t tapThresholdX);
+	int8_t  ITDS_getTapThresholdX(uint8_t *tapThresholdX);
+	int8_t  ITDS_set6DThreshold(ITDS_threshold_Degree threshold6D);
+	int8_t  ITDS_get6DThreshold(ITDS_threshold_Degree *threshold6D);
 
-/* TAP_Y_TH */
-int8_t  ITDS_setTapThresholdY(uint8_t tapThresholdY);
-int8_t  ITDS_getTapThresholdY(uint8_t *tapThresholdY);
-int8_t  ITDS_setTapAxisPriority(ITDS_tap_Axis_Priority tapPriorityAxis);
-int8_t  ITDS_getTapAxisPriority(ITDS_tap_Axis_Priority *tapPriorityAxis);
+	/* TAP_Y_TH */
+	int8_t  ITDS_setTapThresholdY(uint8_t tapThresholdY);
+	int8_t  ITDS_getTapThresholdY(uint8_t *tapThresholdY);
+	int8_t  ITDS_setTapAxisPriority(ITDS_tap_Axis_Priority tapPriorityAxis);
+	int8_t  ITDS_getTapAxisPriority(ITDS_tap_Axis_Priority *tapPriorityAxis);
 
 
-/* TAP_Z_TH */
-int8_t  ITDS_setTapThresholdZ(uint8_t tapThresholdZ);
-int8_t  ITDS_getTapThresholdZ(uint8_t *tapThresholdZ);
-int8_t  ITDS_enTapX(ITDS_state_t tapX);
-int8_t  ITDS_getTapX(ITDS_state_t *tapX);
-int8_t  ITDS_enTapY(ITDS_state_t tapY);
-int8_t  ITDS_getTapY(ITDS_state_t *tapY);
-int8_t  ITDS_enTapZ(ITDS_state_t tapZ);
-int8_t  ITDS_getTapZ(ITDS_state_t *tapZ);
+	/* TAP_Z_TH */
+	int8_t  ITDS_setTapThresholdZ(uint8_t tapThresholdZ);
+	int8_t  ITDS_getTapThresholdZ(uint8_t *tapThresholdZ);
+	int8_t  ITDS_enTapX(ITDS_state_t tapX);
+	int8_t  ITDS_getTapX(ITDS_state_t *tapX);
+	int8_t  ITDS_enTapY(ITDS_state_t tapY);
+	int8_t  ITDS_getTapY(ITDS_state_t *tapY);
+	int8_t  ITDS_enTapZ(ITDS_state_t tapZ);
+	int8_t  ITDS_getTapZ(ITDS_state_t *tapZ);
 
-/* INT_DUR */
-int8_t  ITDS_setLatency(uint8_t latency_t);
-int8_t  ITDS_getLatency(uint8_t *latency_t);
-int8_t  ITDS_setQuiet(uint8_t quiet_t);
-int8_t  ITDS_getQuiet(uint8_t *quiet_t);
-int8_t  ITDS_setShock(uint8_t shock_t);
-int8_t  ITDS_getShock(uint8_t *shock_t);
+	/* INT_DUR */
+	int8_t  ITDS_setLatency(uint8_t latency_t);
+	int8_t  ITDS_getLatency(uint8_t *latency_t);
+	int8_t  ITDS_setQuiet(uint8_t quiet_t);
+	int8_t  ITDS_getQuiet(uint8_t *quiet_t);
+	int8_t  ITDS_setShock(uint8_t shock_t);
+	int8_t  ITDS_getShock(uint8_t *shock_t);
 
-/* WAKE_UP_TH */
-int8_t  ITDS_enTapEvent(ITDS_state_t singleDoubleTap);    /*Enable single/double-tap event. Default value: 0 (0: enable only single-tap, 1: enable both single and double-tap) */
-int8_t  ITDS_getTapEvent(ITDS_state_t *singleDoubleTap);  /* only Single Tap is enabled or Single and double Tap are both enabled */
-int8_t  ITDS_enInactivity(ITDS_state_t sleep);
-int8_t  ITDS_getInactivityState(ITDS_state_t *sleep) ;
-int8_t  ITDS_setWakeupThreshold(uint8_t WakeupTHR);
-int8_t  ITDS_getWakeupThreshold(uint8_t *WakeupTHR);
+	/* WAKE_UP_TH */
+	int8_t  ITDS_enTapEvent(ITDS_state_t singleDoubleTap);    /*Enable single/double-tap event. Default value: 0 (0: enable only single-tap, 1: enable both single and double-tap) */
+	int8_t  ITDS_getTapEvent(ITDS_state_t *singleDoubleTap);  /* only Single Tap is enabled or Single and double Tap are both enabled */
+	int8_t  ITDS_enInactivity(ITDS_state_t sleep);
+	int8_t  ITDS_getInactivityState(ITDS_state_t *sleep) ;
+	int8_t  ITDS_setWakeupThreshold(uint8_t WakeupTHR);
+	int8_t  ITDS_getWakeupThreshold(uint8_t *WakeupTHR);
 
-/* WAKE_UP_DUR */
-int8_t  ITDS_setFreeFallDurationMSB(ITDS_state_t FF_DUR5);
-int8_t  ITDS_getFreeFallDurationMSB(ITDS_state_t *FF_DUR5);
-int8_t  ITDS_setWakeupDuration(uint8_t wakeupDuration);
-int8_t  ITDS_getWakeupDuration(uint8_t *wakeupDuration);
-int8_t  ITDS_enStationnaryDetection(ITDS_state_t stationary);
-int8_t  ITDS_getStationnaryState(ITDS_state_t *stationary);
-int8_t  ITDS_setSleepDuration(uint8_t sleepDur);
-int8_t  ITDS_getSleepDuration(uint8_t *sleepDur);
+	/* WAKE_UP_DUR */
+	int8_t  ITDS_setFreeFallDurationMSB(ITDS_state_t FF_DUR5);
+	int8_t  ITDS_getFreeFallDurationMSB(ITDS_state_t *FF_DUR5);
+	int8_t  ITDS_setWakeupDuration(uint8_t wakeupDuration);
+	int8_t  ITDS_getWakeupDuration(uint8_t *wakeupDuration);
+	int8_t  ITDS_enStationnaryDetection(ITDS_state_t stationary);
+	int8_t  ITDS_getStationnaryState(ITDS_state_t *stationary);
+	int8_t  ITDS_setSleepDuration(uint8_t sleepDur);
+	int8_t  ITDS_getSleepDuration(uint8_t *sleepDur);
 
-/* FREE_FALL */
-int8_t ITDS_setFreeFallDurationLSB(uint8_t freeFallDuration);
-int8_t ITDS_getFreeFallDurationLSB(uint8_t *freeFallDuration);
-int8_t ITDS_setFreeFallThreshold(ITDS_Free_Fall_Thr FF_TH);
-int8_t ITDS_getFreeFallThreshold(ITDS_Free_Fall_Thr *FF_TH);
+	/* FREE_FALL */
+	int8_t ITDS_setFreeFallDurationLSB(uint8_t freeFallDuration);
+	int8_t ITDS_getFreeFallDurationLSB(uint8_t *freeFallDuration);
+	int8_t ITDS_setFreeFallThreshold(ITDS_Free_Fall_Thr FF_TH);
+	int8_t ITDS_getFreeFallThreshold(ITDS_Free_Fall_Thr *FF_TH);
 
-/* STATUS_DETECT */
-int8_t ITDS_getTempDrdy(ITDS_state_t *tempDrdy );
-int8_t ITDS_getSleepState(ITDS_state_t *sleepState);
-int8_t ITDS_getDoubleTapState(ITDS_state_t *doubleTap);
-int8_t ITDS_getSingleTapState(ITDS_state_t *singleTap);
-int8_t ITDS_getDrdy(ITDS_state_t *drdy);
+	/* STATUS_DETECT */
+	int8_t ITDS_getTempDrdy(ITDS_state_t *tempDrdy );
+	int8_t ITDS_getSleepState(ITDS_state_t *sleepState);
+	int8_t ITDS_getDoubleTapState(ITDS_state_t *doubleTap);
+	int8_t ITDS_getSingleTapState(ITDS_state_t *singleTap);
+	int8_t ITDS_getDrdy(ITDS_state_t *drdy);
 
-/* WAKE_UP_EVENT */
-int8_t ITDS_getWakeupX(ITDS_state_t *wakeUpX);
-int8_t ITDS_getWakeupY(ITDS_state_t *wakeUpY);
-int8_t ITDS_getWakeupZ(ITDS_state_t *wakeUpZ);
-int8_t ITDS_getWakeupState(ITDS_state_t *wakeUpState );
+	/* WAKE_UP_EVENT */
+	int8_t ITDS_getWakeupX(ITDS_state_t *wakeUpX);
+	int8_t ITDS_getWakeupY(ITDS_state_t *wakeUpY);
+	int8_t ITDS_getWakeupZ(ITDS_state_t *wakeUpZ);
+	int8_t ITDS_getWakeupState(ITDS_state_t *wakeUpState );
 
-/* TAP_EVENT */
-int8_t ITDS_getTapEventState(ITDS_state_t *tapEvent);
-int8_t ITDS_getTapSign(ITDS_tapSign_t *tapSign);
-int8_t ITDS_getTapXAxis(ITDS_state_t *tapXAxis);
-int8_t ITDS_getTapYAxis(ITDS_state_t *tapYAxis);
-int8_t ITDS_getTapZAxis(ITDS_state_t *tapZAxis);
+	/* TAP_EVENT */
+	int8_t ITDS_getTapEventState(ITDS_state_t *tapEvent);
+	int8_t ITDS_getTapSign(ITDS_tapSign_t *tapSign);
+	int8_t ITDS_getTapXAxis(ITDS_state_t *tapXAxis);
+	int8_t ITDS_getTapYAxis(ITDS_state_t *tapYAxis);
+	int8_t ITDS_getTapZAxis(ITDS_state_t *tapZAxis);
 
-/* 6D_EVENT*/
-int8_t ITDS_getZHOverThresholdState(ITDS_state_t *ZHOverThreshold);
-int8_t ITDS_getZLOverThresholdState(ITDS_state_t *ZLOverThreshold);
-int8_t ITDS_getYHOverThresholdState(ITDS_state_t *YHOverThreshold);
-int8_t ITDS_getYLOverThresholdState(ITDS_state_t *YLOverThreshold);
-int8_t ITDS_getXHOverThresholdState(ITDS_state_t *XHOverThreshold);
-int8_t ITDS_getXLOverThresholdState(ITDS_state_t *XLOverThreshold);
+	/* 6D_EVENT*/
+	int8_t ITDS_getZHOverThresholdState(ITDS_state_t *ZHOverThreshold);
+	int8_t ITDS_getZLOverThresholdState(ITDS_state_t *ZLOverThreshold);
+	int8_t ITDS_getYHOverThresholdState(ITDS_state_t *YHOverThreshold);
+	int8_t ITDS_getYLOverThresholdState(ITDS_state_t *YLOverThreshold);
+	int8_t ITDS_getXHOverThresholdState(ITDS_state_t *XHOverThreshold);
+	int8_t ITDS_getXLOverThresholdState(ITDS_state_t *XLOverThreshold);
 
-/* ALL_INT_EVENT */
-int8_t ITDS_getSleepChangeState(ITDS_state_t *sleep);
+	/* ALL_INT_EVENT */
+	int8_t ITDS_getSleepChangeState(ITDS_state_t *sleep);
 
-/* X_Y_Z_OFS_USR */
-int8_t ITDS_setOffsetValueOnXAxis(uint8_t offsetvalueXAxis);
-int8_t ITDS_getOffsetValueOnXAxis(uint8_t *offsetvalueXAxis);
-int8_t ITDS_setOffsetValueOnYAxis(uint8_t offsetvalueYAxis);
-int8_t ITDS_getOffsetValueOnYAxis(uint8_t *offsetvalueYAxis);
-int8_t ITDS_setOffsetValueOnZAxis(uint8_t offsetvalueZAxis);
-int8_t ITDS_getOffsetValueOnZAxis(uint8_t *offsetvalueZAxis);
+	/* X_Y_Z_OFS_USR */
+	int8_t ITDS_setOffsetValueOnXAxis(uint8_t offsetvalueXAxis);
+	int8_t ITDS_getOffsetValueOnXAxis(uint8_t *offsetvalueXAxis);
+	int8_t ITDS_setOffsetValueOnYAxis(uint8_t offsetvalueYAxis);
+	int8_t ITDS_getOffsetValueOnYAxis(uint8_t *offsetvalueYAxis);
+	int8_t ITDS_setOffsetValueOnZAxis(uint8_t offsetvalueZAxis);
+	int8_t ITDS_getOffsetValueOnZAxis(uint8_t *offsetvalueZAxis);
 
-/* CTRL_7 */
-int8_t ITDS_setDrdyPulse(ITDS_drdy_pulse  drdyPulsed);        	/* latched or pulsed DRDY */
-int8_t ITDS_getDrdyPulseIntMode(ITDS_drdy_pulse  *drdyPulsed); /* latched or pulsed DRDY */
-int8_t ITDS_setInt1OnInt0(ITDS_state_t int1Onint0);
-int8_t ITDS_getInt1OnInt0(ITDS_state_t *int1Onint0) ;
-int8_t ITDS_enInterrups(ITDS_state_t interrupts);
-int8_t ITDS_getInterruptsState(ITDS_state_t *interrupts);
-int8_t ITDS_enApplyOffsetXL(ITDS_state_t offsetXLOutput);
-int8_t ITDS_getApplyOffsetXL(ITDS_state_t *offsetXLOutput);
-int8_t ITDS_enApplyWakeUpOffsetXL(ITDS_state_t offsetXLWakeup);
-int8_t ITDS_getApplyWakeUpOffsetXL(ITDS_state_t *offsetXLWakeup);
+	/* CTRL_7 */
+	int8_t ITDS_setDrdyPulse(ITDS_drdy_pulse  drdyPulsed);        	/* latched or pulsed DRDY */
+	int8_t ITDS_getDrdyPulseIntMode(ITDS_drdy_pulse  *drdyPulsed); /* latched or pulsed DRDY */
+	int8_t ITDS_setInt1OnInt0(ITDS_state_t int1Onint0);
+	int8_t ITDS_getInt1OnInt0(ITDS_state_t *int1Onint0) ;
+	int8_t ITDS_enInterrups(ITDS_state_t interrupts);
+	int8_t ITDS_getInterruptsState(ITDS_state_t *interrupts);
+	int8_t ITDS_enApplyOffsetXL(ITDS_state_t offsetXLOutput);
+	int8_t ITDS_getApplyOffsetXL(ITDS_state_t *offsetXLOutput);
+	int8_t ITDS_enApplyWakeUpOffsetXL(ITDS_state_t offsetXLWakeup);
+	int8_t ITDS_getApplyWakeUpOffsetXL(ITDS_state_t *offsetXLWakeup);
 
-int8_t ITDS_setOffsetWeight(ITDS_state_t offsetWeight);
-int8_t ITDS_getOffsetWeight(ITDS_state_t *offsetWeight);
+	int8_t ITDS_setOffsetWeight(ITDS_state_t offsetWeight);
+	int8_t ITDS_getOffsetWeight(ITDS_state_t *offsetWeight);
 
-int8_t ITDS_enHighPassRefMode(ITDS_state_t refMode);
-int8_t ITDS_getHighPassRefMode(ITDS_state_t *refMode);
+	int8_t ITDS_enHighPassRefMode(ITDS_state_t refMode);
+	int8_t ITDS_getHighPassRefMode(ITDS_state_t *refMode);
 
-int8_t ITDS_enLowPassOn6D(ITDS_state_t LPassOn6D);
-int8_t ITDS_getLowPassOn6DState(ITDS_state_t *LPassOn6D);
+	int8_t ITDS_enLowPassOn6D(ITDS_state_t LPassOn6D);
+	int8_t ITDS_getLowPassOn6DState(ITDS_state_t *LPassOn6D);
 
 
 #ifdef __cplusplus

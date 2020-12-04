@@ -1,27 +1,27 @@
 /**
- ***************************************************************************************************
- * This file is part of WE sensors SDK:
- * https://www.we-online.com/sensors
- *
- * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
- * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
- * TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
- * MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
- * WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
- * RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
- * COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
- * WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
- * FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
- * THEREOF
- *
- * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
- * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
- * IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
- *
- * COPYRIGHT (c) 2019 Würth Elektronik eiSos GmbH & Co. KG
- *
- ***************************************************************************************************
- **/
+***************************************************************************************************
+* This file is part of WE sensors SDK:
+* https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
+*
+* THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
+* EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
+* TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
+* MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
+* WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
+* RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
+* COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
+* WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
+* FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
+* THEREOF
+*
+* THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+* FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+* IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
+*
+* COPYRIGHT (c) 2019 Würth Elektronik eiSos GmbH & Co. KG
+*
+***************************************************************************************************
+**/
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -149,10 +149,10 @@ static void Application()
 
 	if (status != WE_SUCCESS)
 	{
-	Debug_out("Platform SPI Init error ", false);
-	return;
+		Debug_out("Platform SPI Init error ", false);
+		return;
 	}
-#else
+#else /* use i2c */
 	//On the WSEN_PADS evaluation board, the SAO pin is set to high by default
 	//Using the I2C address 1 = 0x5D
 	const int addr_wsen_pads = PADS_ADDRESS_I2C_1;
@@ -168,9 +168,10 @@ static void Application()
 		return;
 	}
 #endif
+
 	/* first communication test */
 	retVal = PADS_getDeviceID(&deviceIdValue);
-	if ((retVal == WE_SUCCESS)&&(deviceIdValue == PADS_DEVICE_ID_VALUE))
+	if ((retVal == WE_SUCCESS) && (deviceIdValue == PADS_DEVICE_ID_VALUE))
 	{
 		Debug_out("WSEN_PADS Communication success\r\n", true);
 		printf("DeviceID 0x%X\r\n", deviceIdValue);
@@ -189,16 +190,16 @@ static void Application()
 	PADS_setLowPassFilterConf(lPfilterBW2);
 
 	/*enable low pass filter */
-	PADS_setLowPassFilter(enable);
+	PADS_setLowPassFilter(PADS_enable);
 
 	/*enable Block Data Update*/
-	PADS_setBlockDataUpdate(enable);
+	PADS_setBlockDataUpdate(PADS_enable);
 
 	/*select Power Mode [0:low Current Mode; 1:low noise Mode]*/
 	PADS_setPowerMode(lowNoise);
 
 	/*enable the Auto Increment */
-	PADS_setAutoIncrement(enable);
+	PADS_setAutoIncrement(PADS_enable);
 
 	/*Select one of the two mode by uncommenting/commenting*/
 	//continuousMode();
@@ -214,7 +215,7 @@ static void Application()
 
 void singleConversionMode()
 {
-    float temperatureData = 0;
+	float temperatureData = 0;
 	float pressureData = 0;
 
 	printf("\nStarting single conversion mode... \r\n");
@@ -224,7 +225,7 @@ void singleConversionMode()
 	{
 		getchar();
 		/*Start a conversion*/
-		PADS_setSingleConvMode(enable);
+		PADS_setSingleConvMode(PADS_enable);
 
 		delay(15);
 
@@ -232,7 +233,7 @@ void singleConversionMode()
 		printf("Pressure [kPa]= %f\r\n", pressureData);
 
 		PADS_getTemperature(&temperatureData);
-		printf("Temperature [C]= %f\r\n", temperatureData);
+		printf("Temperature [°C]= %f\r\n", temperatureData);
 
 	}
 }
@@ -258,7 +259,7 @@ void continuousMode()
 		printf("Pressure [kPa]=%f\r\n", pressureData);
 
 		PADS_getTemperature(&temperatureData);
-		printf("Temperature [C]=%f\r\n", temperatureData);
+		printf("Temperature [°C]=%f\r\n", temperatureData);
 
 		delay(DELAY_1_HZ_IN_MS);
 	}

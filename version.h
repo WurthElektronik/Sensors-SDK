@@ -1,7 +1,7 @@
 /**
  ***************************************************************************************************
  * This file is part of Sensors SDK:
- * https://www.we-online.com/sensors
+ * https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
  *
  * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
  * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
@@ -15,8 +15,8 @@
  * THEREOF
  *
  * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
- * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
- * IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
+ * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE (license_terms_wsen_sdk.pdf) 
+ * LOCATED IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
  *
  * COPYRIGHT (c) 2019 Würth Elektronik eiSos GmbH & Co. KG
  *
@@ -27,7 +27,7 @@
 #define VERSION_H_INCLUDED
 
 #define WE_SENSOR_SDK_MAJOR_VERSION  1
-#define WE_SENSOR_SDK_MINOR_VERSION  4
+#define WE_SENSOR_SDK_MINOR_VERSION  5
 
 
 #endif // VERSION_H_INCLUDED

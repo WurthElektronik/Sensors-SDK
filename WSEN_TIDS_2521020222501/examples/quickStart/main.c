@@ -1,27 +1,27 @@
 /**
- ***************************************************************************************************
- * This file is part of WE sensors SDK:
- * https://www.we-online.com/sensors
- *
- * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
- * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
- * TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
- * MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
- * WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
- * RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
- * COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
- * WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
- * FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
- * THEREOF
- *
- * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
- * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
- * IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
- *
- * COPYRIGHT (c) 2020 Würth Elektronik eiSos GmbH & Co. KG
- *
- ***************************************************************************************************
- **/
+***************************************************************************************************
+* This file is part of WE sensors SDK:
+* https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
+*
+* THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
+* EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
+* TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
+* MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
+* WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
+* RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
+* COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
+* WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
+* FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
+* THEREOF
+*
+* THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+* FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+* IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
+*
+* COPYRIGHT (c) 2020 Würth Elektronik eiSos GmbH & Co. KG
+*
+***************************************************************************************************
+**/
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -166,11 +166,11 @@ static void Application()
 	}
 
 	/*Perform software reset */
-    TIDS_setSwReset(enable);
-    TIDS_setSwReset(disable);
+	TIDS_setSwReset(TIDS_enable);
+	TIDS_setSwReset(TIDS_disable);
 
-    /*Enable auto address increment */
-    TIDS_setAutoIncrement(enable);
+	/*Enable auto address increment */
+	TIDS_setAutoIncrement(TIDS_enable);
 
 	/*Select one of the two mode by uncommenting/commenting*/
 	//continuousMode();
@@ -185,7 +185,7 @@ static void Application()
 
 void singleConversionMode()
 {
-	TIDS_state_t status = disable;
+	TIDS_state_t status = TIDS_disable;
 	float tempDegC = 0;
 
 	printf("\nStarting single conversion mode... \r\n");
@@ -195,13 +195,13 @@ void singleConversionMode()
 	{
 		getchar();
 		/*Start a conversion*/
-		TIDS_setSingleConvMode(enable);
+		TIDS_setSingleConvMode(TIDS_enable);
 
 		/*Wait till the busy bit is set to 0*/
 		do
 		{
-            TIDS_getBusyStatus(&status);
-		}while(status != enable);
+			TIDS_getBusyStatus(&status);
+		}while(status != TIDS_enable);
 
 
 		TIDS_getTemperature(&tempDegC);
@@ -224,10 +224,10 @@ void continuousMode()
 	TIDS_setOutputDataRate(outputDataRate25HZ);
 
 	/*Enable block data update*/
-	TIDS_setBlockDataUpdate(enable);
+	TIDS_setBlockDataUpdate(TIDS_enable);
 
 	/*Enable continuous mode*/
-    TIDS_setContinuousMode(enable);
+	TIDS_setContinuousMode(TIDS_enable);
 
 	printf("\nStarting continuous mode...\r\n");
 	while (1)

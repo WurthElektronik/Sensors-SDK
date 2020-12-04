@@ -1,38 +1,45 @@
 /**
- ***************************************************************************************************
- * This file is part of Sensors SDK:
- * https://www.we-online.com/sensors
- *
- * THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
- * EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
- * TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
- * MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
- * WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
- * RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
- * COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
- * WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
- * FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
- * THEREOF
- *
- * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
- * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
- * IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
- *
- * COPYRIGHT (c) 2020 Würth Elektronik eiSos GmbH & Co. KG
- *
- ***************************************************************************************************
- **/
+***************************************************************************************************
+* This file is part of Sensors SDK:
+* https://www.we-online.com/sensors, https://github.com/WurthElektronik/Sensors-SDK
+*
+* THE SOFTWARE INCLUDING THE SOURCE CODE IS PROVIDED “AS IS”. YOU ACKNOWLEDGE THAT WÜRTH ELEKTRONIK
+* EISOS MAKES NO REPRESENTATIONS AND WARRANTIES OF ANY KIND RELATED TO, BUT NOT LIMITED
+* TO THE NON-INFRINGEMENT OF THIRD PARTIES’ INTELLECTUAL PROPERTY RIGHTS OR THE
+* MERCHANTABILITY OR FITNESS FOR YOUR INTENDED PURPOSE OR USAGE. WÜRTH ELEKTRONIK EISOS DOES NOT
+* WARRANT OR REPRESENT THAT ANY LICENSE, EITHER EXPRESS OR IMPLIED, IS GRANTED UNDER ANY PATENT
+* RIGHT, COPYRIGHT, MASK WORK RIGHT, OR OTHER INTELLECTUAL PROPERTY RIGHT RELATING TO ANY
+* COMBINATION, MACHINE, OR PROCESS IN WHICH THE PRODUCT IS USED. INFORMATION PUBLISHED BY
+* WÜRTH ELEKTRONIK EISOS REGARDING THIRD-PARTY PRODUCTS OR SERVICES DOES NOT CONSTITUTE A LICENSE
+* FROM WÜRTH ELEKTRONIK EISOS TO USE SUCH PRODUCTS OR SERVICES OR A WARRANTY OR ENDORSEMENT
+* THEREOF
+*
+* THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+* FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+* IN THE ROOT DIRECTORY OF THIS DRIVER PACKAGE.
+*
+* COPYRIGHT (c) 2020 Würth Elektronik eiSos GmbH & Co. KG
+*
+***************************************************************************************************
+**/
 
 #ifndef _WSEN_TIDS_H
 #define _WSEN_TIDS_H
 
- /**         Includes         */
+
+/* 
+ * #### INFORMATIVE ####
+ * This sensor only has a i2c communication interface.
+ */
+
+
+/**         Includes         */
 #include <stdint.h> 											/* for support of uint8_t datatypes etc */
 #include "platform.h"
 
 /**         Available TIDS 2521020222501 I2C Slave addresses         */
-#define TIDS_ADDRESS_I2C_0					(uint8_t)0x3F
-#define TIDS_ADDRESS_I2C_1					(uint8_t)0x38
+#define TIDS_ADDRESS_I2C_0					(uint8_t)0x3F  	/* when SAO of TIDS is connected to logic LOW level */
+#define TIDS_ADDRESS_I2C_1					(uint8_t)0x38 	/* when SAO of TIDS is connected to logic HIGH level */
 
 
 /**         TIDS 2521020222501 DEVICE_ID         */
@@ -101,8 +108,8 @@ typedef struct {
 
 /**         Functional type definition         */
 typedef enum {
-	disable = 0,
-	enable = 1
+	TIDS_disable = 0,
+	TIDS_enable = 1
 } TIDS_state_t;
 
 
@@ -119,50 +126,50 @@ extern "C"
 {
 #endif
 
-/**         Functions definition         */
+	/**         Functions definition         */
 
-/* Device ID */
-int8_t TIDS_getDeviceID(uint8_t *devID);
+	/* Device ID */
+	int8_t TIDS_getDeviceID(uint8_t *devID);
 
-/* Temperature limits */
-int8_t TIDS_setTempHighLimit(uint8_t hLimit);
-int8_t TIDS_setTempLowLimit(uint8_t lLimit);
+	/* Temperature limits */
+	int8_t TIDS_setTempHighLimit(uint8_t hLimit);
+	int8_t TIDS_setTempLowLimit(uint8_t lLimit);
 
-int8_t TIDS_getTempHighLimit(uint8_t *hLimit);
-int8_t TIDS_getTempLowLimit(uint8_t *lLimit);
+	int8_t TIDS_getTempHighLimit(uint8_t *hLimit);
+	int8_t TIDS_getTempLowLimit(uint8_t *lLimit);
 
-/* Block data update */
-int8_t TIDS_setBlockDataUpdate(TIDS_state_t bdu);
-int8_t TIDS_getBlockDataUpdate(TIDS_state_t *bdu);
+	/* Block data update */
+	int8_t TIDS_setBlockDataUpdate(TIDS_state_t bdu);
+	int8_t TIDS_getBlockDataUpdate(TIDS_state_t *bdu);
 
-/* Output data rate */
-int8_t TIDS_setOutputDataRate(TIDS_output_data_rate_t odr);
-int8_t TIDS_getOutputDataRate(TIDS_output_data_rate_t* odr);
+	/* Output data rate */
+	int8_t TIDS_setOutputDataRate(TIDS_output_data_rate_t odr);
+	int8_t TIDS_getOutputDataRate(TIDS_output_data_rate_t* odr);
 
-/* Address auto increment */
-int8_t TIDS_setAutoIncrement(TIDS_state_t inc);
-int8_t TIDS_getAutoIncrement(TIDS_state_t *inc);
+	/* Address auto increment */
+	int8_t TIDS_setAutoIncrement(TIDS_state_t inc);
+	int8_t TIDS_getAutoIncrement(TIDS_state_t *inc);
 
-/* Free run mode */
-int8_t TIDS_setContinuousMode(TIDS_state_t mode);
-int8_t TIDS_getContinuousMode(TIDS_state_t *mode);
+	/* Free run mode */
+	int8_t TIDS_setContinuousMode(TIDS_state_t mode);
+	int8_t TIDS_getContinuousMode(TIDS_state_t *mode);
 
-/* One shot mode */
-int8_t TIDS_setSingleConvMode(TIDS_state_t mode);
-int8_t TIDS_getSingleConvMode(TIDS_state_t *mode);
+	/* One shot mode */
+	int8_t TIDS_setSingleConvMode(TIDS_state_t mode);
+	int8_t TIDS_getSingleConvMode(TIDS_state_t *mode);
 
-/* Status */
-int8_t TIDS_getOverHighLimStatus(TIDS_state_t *state);
-int8_t TIDS_getUnderLowLimStatus(TIDS_state_t *state);
-int8_t TIDS_getBusyStatus(TIDS_state_t *state);
+	/* Status */
+	int8_t TIDS_getOverHighLimStatus(TIDS_state_t *state);
+	int8_t TIDS_getUnderLowLimStatus(TIDS_state_t *state);
+	int8_t TIDS_getBusyStatus(TIDS_state_t *state);
 
-/* Software reset */
-int8_t TIDS_setSwReset(TIDS_state_t mode);
-int8_t TIDS_getSwReset(TIDS_state_t *mode);
+	/* Software reset */
+	int8_t TIDS_setSwReset(TIDS_state_t mode);
+	int8_t TIDS_getSwReset(TIDS_state_t *mode);
 
-/* standard Data Out */
-int8_t TIDS_getRAWTemperature(int16_t *rawTemp);
-int8_t TIDS_getTemperature(float *tempdegC);  // Temperature Value in °C
+	/* standard Data Out */
+	int8_t TIDS_getRAWTemperature(int16_t *rawTemp);
+	int8_t TIDS_getTemperature(float *tempdegC);  // Temperature Value in °C
 
 #ifdef __cplusplus
 }
